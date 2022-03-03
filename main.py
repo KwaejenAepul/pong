@@ -40,12 +40,12 @@ def main():
                 screen.blit(text,(0,0))
         #GAMEPLAY
             case 1:
-                ballrect = pygame.Rect((ball.x, ball.y), (ball.size, ball.size))
                 player_paddle.update(HEIGHT)
                 AI_paddle.AI_update(ball, HEIGHT)
                 ball.update(WIDTH, HEIGHT, player_paddle, AI_paddle)
                 AIrect = pygame.Rect((AI_paddle.x, AI_paddle.y), (AI_paddle.width, AI_paddle.height))
                 playerrect = pygame.Rect((player_paddle.x, player_paddle.y), (player_paddle.width, player_paddle.height))
+                ballrect = pygame.Rect((ball.x, ball.y), (ball.size, ball.size))
                 screen.fill((0,0,0))
                 pygame.draw.rect(screen, (255,255,255), ballrect)
                 pygame.draw.rect(screen, (255,255,255), playerrect)
