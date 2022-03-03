@@ -10,12 +10,12 @@ class pong_ball:
         self.direction_x = self.speed
         self.direction_y = self.speed
 
-    def update(self, width, height):
+    def update(self, width, height, player, ai):
         width = width
         height = height
-        if self.x >= width - self.size and self.direction_x == self.speed:
+        if self.x >= ai.x - self.size and self.y in range(int(ai.y), int(ai.y + ai.height)) and self.direction_x == self.speed:
             self.direction_x = - self.speed
-        elif self.x <= 0 and self.direction_x == -self.speed:
+        elif self.x <= player.x + player.width and self.y in range(int(player.y), int(player.y + player.height)) and self.direction_x == -self.speed:
             self.direction_x = self.speed
         if self.y >= height - self.size and self.direction_y == self.speed:
             self.direction_y = - self.speed
@@ -33,9 +33,14 @@ class paddle:
         self.height = 150
         self.speed = 5
 
-    def update(self):
+    def update(self, HEIGHT):
         input = pygame.key.get_pressed()
         if input[K_DOWN]:
-            self.y += self.speed
+            if self.y + self.height + self.speed < HEIGHT:
+                self.y += self.speed
         if input[K_UP]:
-            self.y -= self.speed
+            if self.y + self.speed > 0:
+                self.y -= self.speed
+
+    def AI_update(self, ball, HEIGHT):
+        pass
