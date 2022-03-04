@@ -17,8 +17,8 @@ def main():
     #initialize game objects
     font = pygame.font.SysFont('Hack', 30)
     ball = objects.pong_ball(WIDTH/2, HEIGHT/2, 20)
-    player_paddle = objects.paddle(40,HEIGHT/2 - 75)
-    AI_paddle = objects.paddle(WIDTH - 50, HEIGHT/2 - 75)
+    player = objects.paddle(40,HEIGHT/2 - 75)
+    AI = objects.paddle(WIDTH - 50, HEIGHT/2 - 75)
 
     #main loop
     while True:
@@ -40,11 +40,23 @@ def main():
                 screen.blit(text,(0,0))
         #GAMEPLAY
             case 1:
-                player_paddle.update(HEIGHT)
-                AI_paddle.AI_update(ball, HEIGHT)
-                ball.update(WIDTH, HEIGHT, player_paddle, AI_paddle)
-                AIrect = pygame.Rect((AI_paddle.x, AI_paddle.y), (AI_paddle.width, AI_paddle.height))
-                playerrect = pygame.Rect((player_paddle.x, player_paddle.y), (player_paddle.width, player_paddle.height))
+                player.update(HEIGHT)
+                AI.AI_update(ball, HEIGHT)
+                ball.update(HEIGHT, player, AI)
+                if ball.x < 0:
+                    objects.reset(player, AI, ball, HEIGHT, WIDTH)
+                    AI.score += 1
+                if ball.x > WIDTH:
+                    objects.reset(player, AI, ball, HEIGHT, WIDTH)
+                    player.score += 1
+
+                if player.score == 5:
+                    gamestate = 3
+                elif AI.score == 5:
+                    gamestate = 2
+
+                AIrect = pygame.Rect((AI.x, AI.y), (AI.width, AI.height))
+                playerrect = pygame.Rect((player.x, player.y), (player.width, player.height))
                 ballrect = pygame.Rect((ball.x, ball.y), (ball.size, ball.size))
                 screen.fill((0,0,0))
                 pygame.draw.rect(screen, (255,255,255), ballrect)
@@ -55,11 +67,15 @@ def main():
                 text = font.render(f"GAME OVER", False, (255,255,255))
                 screen.fill((0,0,0))
                 screen.blit(text,(0,0))
+                player.score = 0
+                AI.score = 0
         #WIN SCREEN
             case 3:
                 text = font.render(f"WINNING", False, (255,255,255))
                 screen.fill((0,0,0))
                 screen.blit(text,(0,0))
+                player.score = 0
+                AI.score = 0
 
         pygame.display.flip()
         sleep(1/70)
