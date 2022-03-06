@@ -17,8 +17,8 @@ def main():
     #initialize game objects
     font = pygame.font.SysFont('Hack', 30)
     ball = objects.pong_ball(WIDTH/2, HEIGHT/2, 20)
-    player = objects.paddle(40,HEIGHT/2 - 75)
-    AI = objects.paddle(WIDTH - 50, HEIGHT/2 - 75)
+    player = objects.Player(40,HEIGHT/2 - 75)
+    AI = objects.Ai(WIDTH - 50, HEIGHT/2 - 75)
 
     #main loop
     while True:
@@ -41,7 +41,7 @@ def main():
         #GAMEPLAY
             case 1:
                 player.update(HEIGHT)
-                AI.AI_update(ball, HEIGHT)
+                AI.update(ball, HEIGHT)
                 ball.update(HEIGHT, player, AI)
                 if ball.x < 0:
                     objects.reset(player, AI, ball, HEIGHT, WIDTH)

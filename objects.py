@@ -31,6 +31,12 @@ class paddle:
         self.speed = 5
         self.score = 0
 
+
+class Player(paddle):
+    def __init__(self, x, y):
+        paddle.__init__(self, x, y)
+        self.score = 0
+
     def update(self, HEIGHT):
         input = pygame.key.get_pressed()
         if input[K_DOWN]:
@@ -40,13 +46,40 @@ class paddle:
             if self.y + self.speed > 0:
                 self.y -= self.speed
 
-    def AI_update(self, ball, HEIGHT):
-        if ball.y > self.y:
+
+class Ai(paddle):
+    def __init__(self, x, y):
+        paddle.__init__(self, x, y)
+        self.score = 0
+
+
+    def monado(self, bally, ballx, ballspeed, ballsize, HEIGHT):
+        i = 0
+        direction = ballspeed
+        while i < 10:
+            if bally >= HEIGHT - ballsize and direction == ballspeed:
+                direction = - ballspeed
+            elif bally <= 0 and direction == -ballspeed:
+                direction = ballspeed
+            if ballx >= self.x:
+                return bally
+            ballx += direction
+            bally += direction
+            i+=1
+        return bally
+
+    def update(self, ball, HEIGHT):
+        bally = int(ball.y)
+        ballx = int(ball.x)
+        ballspeed = int(ball.speed)
+        ballsize = int(ball.size)
+        bally = self.monado(bally, ballx, ballspeed, ballsize, HEIGHT)
+        if bally > self.y:
             if self.y + self.height > HEIGHT:
                 pass
             else:
                 self.y += self.speed
-        if ball.y < self.y:
+        if bally < self.y  + 50:
             self.y -= self.speed
 
 
