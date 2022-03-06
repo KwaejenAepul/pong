@@ -53,10 +53,10 @@ class Ai(paddle):
         self.score = 0
 
 
-    def monado(self, bally, ballx, ballspeed, ballsize, HEIGHT):
+    def monado(self, bally, ballx, ballspeed, ballsize, direction, HEIGHT):
         i = 0
-        direction = ballspeed
-        while i < 10:
+        direction = direction
+        while i < 20:
             if bally >= HEIGHT - ballsize and direction == ballspeed:
                 direction = - ballspeed
             elif bally <= 0 and direction == -ballspeed:
@@ -73,13 +73,15 @@ class Ai(paddle):
         ballx = int(ball.x)
         ballspeed = int(ball.speed)
         ballsize = int(ball.size)
-        bally = self.monado(bally, ballx, ballspeed, ballsize, HEIGHT)
+        direction = int(ball.direction_y)
+        bally = self.monado(bally, ballx, ballspeed, ballsize, direction, HEIGHT)
+        print(bally, ball.y)
         if bally > self.y:
-            if self.y + self.height > HEIGHT:
+            if self.y + self.height >= HEIGHT:
                 pass
             else:
                 self.y += self.speed
-        if bally < self.y  + 50:
+        if bally <= self.y + (self.height/2):
             self.y -= self.speed
 
 
