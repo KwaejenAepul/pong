@@ -56,14 +56,14 @@ class Ai(paddle):
     def monado(self, bally, ballx, ballspeed, ballsize, direction, HEIGHT):
         i = 0
         direction = direction
-        while i < 20:
+        while True:
             if bally >= HEIGHT - ballsize and direction == ballspeed:
                 direction = - ballspeed
             elif bally <= 0 and direction == -ballspeed:
                 direction = ballspeed
             if ballx >= self.x:
-                return bally
-            ballx += direction
+                break
+            ballx += ballspeed
             bally += direction
             i+=1
         return bally
