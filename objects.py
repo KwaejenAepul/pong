@@ -29,8 +29,6 @@ class paddle:
         self.width = 20
         self.height = 150
         self.speed = 5
-        self.score = 0
-
 
 class Player(paddle):
     def __init__(self, x, y):
