@@ -26,19 +26,19 @@ class pong_ball:
 
     def calc_angle(self, paddle):
         section_size = int(paddle.height/5)
-        if self.x in range(paddle.x, int(paddle.x + section_size)):
+        if int(self.y) in range(int(paddle.y), int(paddle.y) + section_size):
             self.direction_x = 4
             self.direction_y = -10
-        elif self.x in range(paddle.x, int(paddle.x + (section_size*2))):
+        elif int(self.y) in range(int(paddle.y) + (section_size), int(paddle.y) + (section_size*2)):
             self.direction_x = 6
             self.direction_y = -8
-        elif self.x in range(paddle.x, int(paddle.x + (section_size*3))):
+        elif int(self.y) in range(int(paddle.y) + (section_size*2), int(paddle.y) + (section_size*3)):
             self.direction_x = 7
             self.direction_y = 7
-        elif self.x in range(paddle.x, int(paddle.x + (section_size*4))):
+        elif int(self.y) in range(int(paddle.y) + (section_size*3), int(paddle.y) + (section_size*4)):
             self.direction_x = 6
             self.direction_y = 8
-        elif self.x in range(paddle.x, int(paddle.x + (section_size*5))):
+        elif int(self.y) in range(int(paddle.y) + (section_size*4), int(paddle.y) + (section_size*5)):
             self.direction_x = 4
             self.direction_y = 10
 
