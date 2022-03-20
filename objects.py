@@ -6,7 +6,7 @@ class pong_ball:
         self.x:int = x
         self.y:int = y
         self.size:int = size
-        self.speed:int = 7
+        self.speed:int = 6
         self.direction_x:int = self.speed
         self.direction_y:int = self.speed
 
@@ -26,7 +26,7 @@ class pong_ball:
 
     def calc_angle(self, paddle):
         section_size = int(paddle.height/5)
-        if int(self.y) in range(int(paddle.y), int(paddle.y) + section_size):
+        if int(self.y) in range(int(paddle.y), int(paddle.y) + section_size) or int(self.y + self.size) in range(int(paddle.y), int(paddle.y) + section_size):
             self.direction_x = 4
             self.direction_y = -10
         elif int(self.y) in range(int(paddle.y) + (section_size), int(paddle.y) + (section_size*2)):
@@ -71,28 +71,28 @@ class Ai(paddle):
         self.score = 0
 
     #unbeatable ai part
-    def monado(self, bally, ballx, ballspeed, ballsize, direction, HEIGHT):
+    def monado(self, ball, player, HEIGHT):
         i = 0
-        direction = direction
-        while True:
-            if bally >= HEIGHT - ballsize and direction == ballspeed:
-                direction = - ballspeed
-            elif bally <= 0 and direction == -ballspeed:
-                direction = ballspeed
+        ballx = int(ball.x)
+        bally = int(ball.y)
+        direction_y = int(ball.direction_y)
+        direction_x = int(ball.direction_x)
+        while i < 40:
+            if bally >= HEIGHT - ball.size and direction_y > 0:
+                direction_y *= -1
+            elif bally <= 0 and direction_y < 0 :
+                direction_y *= -1
+            if ballx <= player.x:
+                direction_x += -1
             if ballx >= self.x:
                 break
-            ballx += ballspeed
-            bally += direction
+            ballx += direction_x
+            bally += direction_y
             i+=1
         return bally
 
-    def update(self, ball, HEIGHT):
-        bally = int(ball.y)
-        ballx = int(ball.x)
-        ballspeed = int(ball.speed)
-        ballsize = int(ball.size)
-        direction = int(ball.direction_y)
-        bally = self.monado(bally, ballx, ballspeed, ballsize, direction, HEIGHT)
+    def update(self, ball, player, HEIGHT):
+        bally = self.monado(ball, player, HEIGHT)
         if bally > self.y:
             if self.y + self.height >= HEIGHT:
                 pass
