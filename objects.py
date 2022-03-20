@@ -70,7 +70,6 @@ class Ai(paddle):
         paddle.__init__(self, x, y)
         self.score = 0
 
-    #unbeatable ai part
     def monado(self, ball, player, HEIGHT):
         i = 0
         ballx = int(ball.x)
@@ -83,7 +82,7 @@ class Ai(paddle):
             elif bally <= 0 and direction_y < 0 :
                 direction_y *= -1
             if ballx <= player.x:
-                direction_x += -1
+                direction_x *= -1
             if ballx >= self.x:
                 break
             ballx += direction_x
