@@ -1,5 +1,6 @@
 import objects
 import pygame
+import screens
 from sys import exit
 from time import sleep
 
@@ -40,6 +41,7 @@ def main():
                 screen.blit(text,(0,0))
         #GAMEPLAY
             case 1:
+                gameScreen = screens.GameScreen(player, AI)
                 player.update(HEIGHT)
                 AI.update(ball, player, HEIGHT)
                 ball.update(HEIGHT, player, AI)
@@ -55,10 +57,13 @@ def main():
                 elif AI.score == 5:
                     gamestate = 2
 
+                displayPlayerScore, displayAiScore = gameScreen.displayscore()
                 AIrect = pygame.Rect((AI.x, AI.y), (AI.width, AI.height))
                 playerrect = pygame.Rect((player.x, player.y), (player.width, player.height))
                 ballrect = pygame.Rect((ball.x, ball.y), (ball.size, ball.size))
                 screen.fill((0,0,0))
+                screen.blit(displayPlayerScore, (WIDTH/4,0))
+                screen.blit(displayAiScore, (WIDTH - WIDTH/4, 0))
                 pygame.draw.rect(screen, (255,255,255), ballrect)
                 pygame.draw.rect(screen, (255,255,255), playerrect)
                 pygame.draw.rect(screen, (255,255,255), AIrect)
