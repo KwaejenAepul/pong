@@ -41,7 +41,7 @@ def main():
                 screen.blit(text,(0,0))
         #GAMEPLAY
             case 1:
-                gameScreen = screens.GameScreen(player, AI)
+                gameScreen = screens.GameScreen(player, AI, WIDTH, HEIGHT)
                 player.update(HEIGHT)
                 AI.update(ball, player, HEIGHT)
                 ball.update(HEIGHT, player, AI)
@@ -64,6 +64,7 @@ def main():
                 screen.fill((0,0,0))
                 screen.blit(displayPlayerScore, (WIDTH/4,0))
                 screen.blit(displayAiScore, (WIDTH - WIDTH/4, 0))
+                pygame.draw.rect(screen , (160,160,160), gameScreen.midrect)
                 pygame.draw.rect(screen, (255,255,255), ballrect)
                 pygame.draw.rect(screen, (255,255,255), playerrect)
                 pygame.draw.rect(screen, (255,255,255), AIrect)

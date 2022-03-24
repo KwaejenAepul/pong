@@ -23,15 +23,15 @@ class TitleScreen:
         pass
 
 class GameScreen:
-    def __init__(self, player, ai):
+    def __init__(self, player, ai, WIDTH, HEIGHT):
         self.playerscore = player.score
         self.aiscore = ai.score
-        self.midrect = "rect" #gotta fix this shiz
+        self.midrect = pygame.Rect((WIDTH/2 - 5,0),(10, HEIGHT) ) #gotta fix this shiz
 
     def displayscore(self):
         font = pygame.font.SysFont('Hack', 30)
-        displayPlayerScore = font.render(f"{self.playerscore}", True, (255,0,0))
-        displayerAiScore = font.render(f"{self.aiscore}", True, (255,0,0))
+        displayPlayerScore = font.render(f"{self.playerscore}", True, (160,160,160))
+        displayerAiScore = font.render(f"{self.aiscore}", True, (160,160,160))
         return displayPlayerScore, displayerAiScore
 
 class WinScreen:
