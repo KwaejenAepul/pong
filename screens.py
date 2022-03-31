@@ -1,23 +1,17 @@
 import pygame
-from pygame.constants import K_DOWN, K_UP
 
 class TitleScreen:
     def __init__(self):
         self.title = "PONG"
-        self.selection = 0
+        self.font = pygame.font.SysFont('Hack', 30)
+        self.text = self.font.render("Play", True, (255,255,255))
 
-    def input(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                if event.key == K_DOWN:
-                    self.selection += 1
-                if event.key == K_UP:
-                    self.selection -= 1
+    def update(self, selection_cursor):
+        if selection_cursor == 0:
+            self.text = self.font.render("Play", True, (255,255,255))
+        elif selection_cursor == 1:
+            self.text = self.font.render("Quit", True, (255,255,255))
 
-                if self.selection > 1:
-                    self.selection = 0
-                if self.selection < 0:
-                    self.selection = 1
 
     def selection_rect(self):
         pass
@@ -39,9 +33,26 @@ class WinScreen:
         self.playerscore = player.score
         self.aiscore = ai.score
         self.title = "YOU WON"
+        self.font = pygame.font.SysFont('Hack', 30)
+        self.text = self.font.render("Play", True, (255,255,255))
+
+    def update(self, selection_cursor):
+        if selection_cursor == 0:
+            self.text = self.font.render("Play", True, (255,255,255))
+        elif selection_cursor == 1:
+            self.text = self.font.render("Quit", True, (255,255,255)) 
 
 class GameOverScreen:
     def __init__(self, player, ai):
         self.playerscore = player.score
         self.aiscore = ai.score
         self.title = "YOU LOST"
+        self.font = pygame.font.SysFont('Hack', 30)
+        self.text = self.font.render("Play", True, (255,255,255))
+
+    def update(self, selection_cursor):
+        if selection_cursor == 0:
+            self.text = self.font.render("Play", True, (255,255,255))
+        elif selection_cursor == 1:
+            self.text = self.font.render("Quit", True, (255,255,255))
+

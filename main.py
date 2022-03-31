@@ -14,13 +14,14 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode(SCREEN_SIZE)
     gamestate = 0
+    selection_cursor = 0
 
     #initialize game objects
-    font = pygame.font.SysFont('Hack', 30)
+    font = pygame.font.SysFont('Hack', 50)
     ball = objects.pong_ball(WIDTH/2, HEIGHT/2, 20)
     player = objects.Player(40,HEIGHT/2 - 75)
     AI = objects.Ai(WIDTH - 50, HEIGHT/2 - 75)
-
+    titlescreen = screens.TitleScreen()
     #main loop
     while True:
         for event in pygame.event.get():
@@ -32,13 +33,26 @@ def main():
                         gamestate += 1
                     else:
                         gamestate = 0
+                if event.key == pygame.K_DOWN and gamestate != 1:
+                    selection_cursor += 1
+                if event.key == pygame.K_UP and gamestate != 1:
+                    selection_cursor -= 1
+
+                if selection_cursor > 1:
+                    selection_cursor = 0
+                elif selection_cursor < 0:
+                    selection_cursor = 1
 
         match gamestate:
         #TITLESCREEN
             case 0:
-                text = font.render(f"TITLE SCREEN", False, (255,255,255))
+                titlescreen.update(selection_cursor)
                 screen.fill((0,0,0))
-                screen.blit(text,(0,0))
+                title = font.render(f"{titlescreen.title}", True, (255,255,255))
+                title_rect = title.get_rect(center=(WIDTH//2, 40))
+                text_rect = titlescreen.text.get_rect(center=(WIDTH//2, HEIGHT//2))
+                screen.blit(title,title_rect)
+                screen.blit(titlescreen.text,text_rect)
         #GAMEPLAY
             case 1:
                 gameScreen = screens.GameScreen(player, AI, WIDTH, HEIGHT)
