@@ -20,7 +20,7 @@ class GameScreen:
     def __init__(self, player, ai, WIDTH, HEIGHT):
         self.playerscore = player.score
         self.aiscore = ai.score
-        self.midrect = pygame.Rect((WIDTH/2 - 5,0),(10, HEIGHT) ) #gotta fix this shiz
+        self.midrect = pygame.Rect((WIDTH/2 - 5,0),(10, HEIGHT))
 
     def displayscore(self):
         font = pygame.font.SysFont('Hack', 30)

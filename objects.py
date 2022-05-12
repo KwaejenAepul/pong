@@ -100,7 +100,6 @@ class Ai(paddle):
         if bally <= self.y + (self.height/2):
             self.y -= self.speed
 
-
 def reset(player, ai, ball, HEIGHT, WIDTH):
     player.y = HEIGHT/2 - 75
     ai.y = HEIGHT/2 - 75

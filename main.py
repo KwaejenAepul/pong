@@ -21,7 +21,10 @@ def main():
     ball = objects.pong_ball(WIDTH/2, HEIGHT/2, 20)
     player = objects.Player(40,HEIGHT/2 - 75)
     AI = objects.Ai(WIDTH - 50, HEIGHT/2 - 75)
+    #initialize different screens
     titlescreen = screens.TitleScreen()
+    winscreen = screens.WinScreen(player, AI)
+    gameoverscreen = screens.GameOverScreen(player, AI)
     #main loop
     while True:
         for event in pygame.event.get():
@@ -84,22 +87,29 @@ def main():
                 pygame.draw.rect(screen, (255,255,255), AIrect)
         #GAME OVER
             case 2:
-                text = font.render(f"GAME OVER", False, (255,255,255))
+                gameoverscreen.update(selection_cursor)
+                title = font.render(f"{gameoverscreen.title}", True, (255,255,255))
+                title_rect = title.get_rect(center=(WIDTH//2, 40))
+                text_rect = gameoverscreen.text.get_rect(center=(WIDTH//2, HEIGHT//2))
                 screen.fill((0,0,0))
-                screen.blit(text,(0,0))
+                screen.blit(title,title_rect)
+                screen.blit(gameoverscreen.text, text_rect)
                 player.score = 0
                 AI.score = 0
         #WIN SCREEN
             case 3:
-                text = font.render(f"WINNING", False, (255,255,255))
+                winscreen.update(selection_cursor)
+                title = font.render(f"{winscreen.title}", True, (255,255,255))
+                title_rect = title.get_rect(center=(WIDTH//2, 40))
+                text_rect = winscreen.text.get_rect(center=(WIDTH//2, HEIGHT//2))
                 screen.fill((0,0,0))
-                screen.blit(text,(0,0))
+                screen.blit(title,title_rect)
+                screen.blit(winscreen.text, text_rect)
                 player.score = 0
                 AI.score = 0
 
         pygame.display.flip()
         sleep(1/70)
-
 
 if __name__ == "__main__":
     main()
